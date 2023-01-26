@@ -5,17 +5,6 @@
         </h2>
     </x-slot>
 
-    {{-- <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("Products table") }}
-                    {{ $data[1]->product_name }}
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
     <div class="container py-12">
         <div class="row">
             <div class="col-5">
@@ -26,8 +15,9 @@
             </div>
         </div>
 
-
+        <!-- Product Table -->
         <table class="table table-bordered data-table">
+            <!-- Product Table Head -->
             <thead>
                 <tr>
                     <th>No</th>
@@ -39,11 +29,15 @@
                     <th>Action</th>
                 </tr>
             </thead>
+
+            <!-- Product Table Data -->
             <tbody>
+                <!-- AJAX will render the datatable here -->
             </tbody>
         </table>
     </div>
 
+    <!-- Add and Edit Modal -->
     <div class="modal fade" id="ajaxModel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -257,7 +251,7 @@
             var product_id = $(this).data('id');
             $.get("{{ route('products.index') }}" +'/' + product_id +'/edit', function (data) {
                 $('#modelHeading').html("Edit Product");
-                $('#saveBtn').val("edit-user");
+                $('#saveBtn').val("edit-user").addClass('edit-product');
                 $('#ajaxModel').modal('show');
                 $('#id').val(data.id);
                 $('#product_id').val(data.product_id);
@@ -273,6 +267,7 @@
             Create Product Code
             --------------------------------------------
             --------------------------------------------*/
+
             $('#saveBtn').click(function (e) {
                 e.preventDefault();
                 // $(this).html('Sending..');
@@ -287,29 +282,36 @@
                     type: "POST",
                     dataType: 'json',
                     success: function (data) {
-
                         $('#productForm').trigger("reset");
                         $('#ajaxModel').modal('hide');
-                        Swal.fire(
-                            'Product Added Successfully!',
-                            '',
-                            'success'
-                        )
+                        if ($('#saveBtn').hasClass("edit-product")) {
+                            Swal.fire(
+                                'Product Updated Successfully!',
+                                '',
+                                'success'
+                            )
+                        } else {
+                            Swal.fire(
+                                'Product Added Successfully!',
+                                '',
+                                'success'
+                            )
+                        }
                         table.draw();
+                        location.reload()
 
                     },
                     error: function (data) {
                         console.log('Error:', data);
-                        // Swal.fire(
-                        //     'Product Added Failure!',
-                        //     '',
-                        //     'warning'
-                        // )
+                        Swal.fire(
+                            'Product Added Failure!',
+                            '',
+                            'warning'
+                        )
                         $('#saveBtn').html('Save Changes');
                     }
                 });
             });
-
 
             /*------------------------------------------
             --------------------------------------------
@@ -317,20 +319,19 @@
             --------------------------------------------
             --------------------------------------------*/
             $('body').on('click', '.deleteProduct', function () {
+                var product_id = $(this).data("id");
+                // confirm("Are You sure want to delete !");
 
-            var product_id = $(this).data("id");
-            // confirm("Are You sure want to delete !");
-
-            Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
+                Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
                         Swal.fire(
                             'Deleted!',
                             'Your file has been deleted.',

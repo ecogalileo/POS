@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -29,6 +30,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        Alert::success('Login Successfully', '')->autoClose(1000);
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
@@ -43,6 +45,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
+        Alert::success('Logout Successfully', '')->autoClose(1000);
         return redirect('/');
+        // Alert::success('Login Successfully', '')->autoClose(1000);
     }
 }
