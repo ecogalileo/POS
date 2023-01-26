@@ -267,7 +267,6 @@
             Create Product Code
             --------------------------------------------
             --------------------------------------------*/
-
             $('#saveBtn').click(function (e) {
                 e.preventDefault();
                 // $(this).html('Sending..');
@@ -285,21 +284,27 @@
                         $('#productForm').trigger("reset");
                         $('#ajaxModel').modal('hide');
                         if ($('#saveBtn').hasClass("edit-product")) {
-                            Swal.fire(
-                                'Product Updated Successfully!',
-                                '',
-                                'success'
-                            )
+                            Swal.fire({
+                            icon: 'success',
+                            title: 'Product Updated Successfully!',
+                            title: 'Your product has been updated',
+                            showConfirmButton: true,
+                            timer: 1500,
+                            }).then(function() {
+                                location.reload(); // <--- submit form programmatically
+                            });
                         } else {
-                            Swal.fire(
-                                'Product Added Successfully!',
-                                '',
-                                'success'
-                            )
+                            Swal.fire({
+                            icon: 'success',
+                            title: 'Product Added Successfully!',
+                            title: 'Your product has been added',
+                            showConfirmButton: true,
+                            timer: 1500,
+                            }).then(function() {
+                                location.reload(); // <--- submit form programmatically
+                            });
                         }
                         table.draw();
-                        location.reload()
-
                     },
                     error: function (data) {
                         console.log('Error:', data);
