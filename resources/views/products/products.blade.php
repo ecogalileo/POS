@@ -319,18 +319,35 @@
             $('body').on('click', '.deleteProduct', function () {
 
             var product_id = $(this).data("id");
-            confirm("Are You sure want to delete !");
+            // confirm("Are You sure want to delete !");
 
-            $.ajax({
-                type: "DELETE",
-                url: "{{ route('products.store') }}"+'/'+product_id,
-                success: function (data) {
-                    table.draw();
-                },
-                error: function (data) {
-                    console.log('Error:', data);
-                }
-            });
+            Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                        $.ajax({
+                            type: "DELETE",
+                            url: "{{ route('products.store') }}"+'/'+product_id,
+                            success: function (data) {
+                                table.draw();
+                            },
+                            error: function (data) {
+                                console.log('Error:', data);
+                            }
+                        });
+                    }
+                })
             });
 
         });

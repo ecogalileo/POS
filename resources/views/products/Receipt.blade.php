@@ -20,10 +20,10 @@
     <table class="table table-striped">
         <thead class="thead-dark">
             <tr>
-            <th scope="col">Product ID</th>
-            <th scope="col">Product Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Quantity</th>
+            <th class="text-center" scope="col">Product ID</th>
+            <th class="text-center" scope="col">Product Name</th>
+            <th class="text-center" scope="col">Price</th>
+            <th class="text-center" scope="col">Quantity</th>
             <th scope="col">Total Amount</th>
             </tr>
         </thead>
@@ -31,10 +31,10 @@
         <tbody>
             @foreach ($data as $key => $datas)
                 <tr>
-                    <td scope="row">{{ $datas->product_id }}</td>
-                    <td>{{ $datas->product_name }}</td>
-                    <td>{{ $datas->price }}</td>
-                    <td>{{ $datas->quantity }}</td>
+                    <td class="text-center" scope="row">{{ $datas->product_id }}</td>
+                    <td class="text-center">{{ $datas->product_name }}</td>
+                    <td class="text-center">{{ $datas->price }}</td>
+                    <td class="text-center">{{ $datas->quantity }} PCS</td>
                     <td class="total-amount">{{ $datas->total_amount }}</td>
                 </tr>
             @endforeach
