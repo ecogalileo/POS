@@ -6,15 +6,7 @@
 <div class="container" id="print">
 
     <div class="row justify-content-center" id="logo">
-        <center>
-        <div class="col">
-            <img src="{{ URL::to('assets/images/logo.png') }}" class="rounded-circle " alt="Cinque Terre" width="304" height="236">
-        </div>
-        <div class="w-100"></div>
-        <div class="col">
-            <h1 class="text-bold mb-5">Convenience Store</h1>
-        </div>
-        </center>
+        <x-application-logo class="block h-64 w-auto fill-current text-gray-800" />
     </div>
 
     <table class="table table-striped">
