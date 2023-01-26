@@ -18,7 +18,7 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            // 'name' => fake()->name(),
+            // 'name' => 		'created_at'=>$date,
             // 'email' => fake()->unique()->safeEmail(),
             'name' => 'admin',
             'email' => 'admin@admin.com',

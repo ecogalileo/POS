@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.text-bold {
+    font-size: 2.5em;
+}
+
+#logo * {
+    display: none;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #print * {
+        visibility: visible;
+    }
+    #logo * {
+        /* visibility: visible; */
+        display: block;
+    }
+    #print {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}
